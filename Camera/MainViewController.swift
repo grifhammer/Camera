@@ -10,6 +10,14 @@ import UIKit
 
 class MainViewController: UIViewController {
 
+    @IBOutlet weak var displayImageView: UIImageView!
+    
+    @IBAction func cameraButtonTouched(sender: AnyObject) {
+    }
+    
+    @IBAction func libraryButtonTouched(sender: AnyObject) {
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

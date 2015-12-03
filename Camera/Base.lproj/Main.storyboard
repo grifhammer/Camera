@@ -3,17 +3,24 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="Nke-HV-6kP">
             <objects>
-                <navigationController id="8L2-cp-zuD" sceneMemberID="viewController">
+                <navigationController toolbarHidden="NO" id="8L2-cp-zuD" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EpW-jD-bGT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="mh9-Tn-8Hh">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </toolbar>
                     <connections>
                         <segue destination="SF2-Ay-fym" kind="relationship" relationship="rootViewController" id="G7X-O8-ySP"/>
                     </connections>
@@ -33,10 +40,39 @@
                     <view key="view" contentMode="scaleToFill" id="NKg-G9-Cet">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Em8-A2-kdR">
+                                <rect key="frame" x="20" y="56" width="568" height="508"/>
+                                <animations/>
+                            </imageView>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Em8-A2-kdR" secondAttribute="trailingMargin" id="7ri-Xn-S01"/>
+                            <constraint firstItem="hF7-YV-C2b" firstAttribute="top" secondItem="Em8-A2-kdR" secondAttribute="bottomMargin" id="jBf-dW-2IH"/>
+                            <constraint firstItem="Em8-A2-kdR" firstAttribute="leading" secondItem="NKg-G9-Cet" secondAttribute="leadingMargin" id="lfB-BY-E2r"/>
+                            <constraint firstItem="Em8-A2-kdR" firstAttribute="topMargin" secondItem="eEc-hq-Dy5" secondAttribute="bottom" id="nve-As-fDx"/>
+                        </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="YbI-EC-m4h"/>
+                        <barButtonItem systemItem="camera" id="YLt-GK-el6">
+                            <connections>
+                                <action selector="cameraButtonTouched:" destination="SF2-Ay-fym" id="Vaz-Co-ww3"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="xoq-66-2dw"/>
+                        <barButtonItem systemItem="organize" id="lXc-2E-dDM">
+                            <connections>
+                                <action selector="libraryButtonTouched:" destination="SF2-Ay-fym" id="qGn-9n-VcG"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="YEm-OZ-o7t"/>
+                    <connections>
+                        <outlet property="displayImageView" destination="Em8-A2-kdR" id="Gql-Ml-DHh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EX8-ba-b5r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
