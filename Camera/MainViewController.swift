@@ -8,14 +8,39 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var displayImageView: UIImageView!
     
+    func displayImagePicker(sType: UIImagePickerControllerSourceType){
+        let imagePicker = UIImagePickerController()
+        
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = sType
+        
+        imagePicker.delegate = self
+        
+        self.presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
     @IBAction func cameraButtonTouched(sender: AnyObject) {
+        displayImagePicker(.Camera)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        self.displayImageView.image = image
+        
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        
     }
     
     @IBAction func libraryButtonTouched(sender: AnyObject) {
+        displayImagePicker(.PhotoLibrary)
     }
     
     override func viewDidLoad() {
