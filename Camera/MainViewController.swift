@@ -98,10 +98,11 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         else {
             self.currentZoom = 1.0
         }
-        
-        self.scrollView.minimumZoomScale = self.currentZoom
-        self.scrollView.maximumZoomScale = self.currentZoom
-        self.scrollView.zoomScale = self.currentZoom
+        UIView.animateWithDuration(0.5) { [unowned self] in
+            self.scrollView.minimumZoomScale = self.currentZoom
+            self.scrollView.maximumZoomScale = self.currentZoom
+            self.scrollView.zoomScale = self.currentZoom
+        }
     }
 
 }
