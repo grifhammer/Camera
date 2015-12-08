@@ -286,6 +286,7 @@
 				85DADB501C0FB7520006213B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

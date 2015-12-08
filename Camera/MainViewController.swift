@@ -8,9 +8,22 @@
 
 import UIKit
 
-class MainViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MainViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate {
 
+    private var currentZoom: CGFloat = 1.0
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var displayImageView: UIImageView!
+    @IBAction func actionButtonTouched(sender: AnyObject) {
+        if let image = self.displayImageView.image{
+            //Add Code Here
+            let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+            activityViewController.excludedActivityTypes = [UIActivityTypeMail];
+            
+            self.presentViewController(activityViewController, animated: true, completion: nil)
+            
+        }
+    }
     
     func displayImagePicker(sType: UIImagePickerControllerSourceType){
         let imagePicker = UIImagePickerController()
@@ -47,6 +60,14 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        let gesture = UITapGestureRecognizer(target: self, action: "zoomImage")
+        
+        gesture.numberOfTapsRequired = 2
+        
+        self.scrollView.addGestureRecognizer(gesture)
+        
+        self.scrollView.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,5 +85,23 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return self.displayImageView
+    }
+    
+    
+    func zoomImage(){
+        if self.currentZoom == 1.0{
+            self.currentZoom = 2.0
+        }
+        else {
+            self.currentZoom = 1.0
+        }
+        
+        self.scrollView.minimumZoomScale = self.currentZoom
+        self.scrollView.maximumZoomScale = self.currentZoom
+        self.scrollView.zoomScale = self.currentZoom
+    }
 
 }
