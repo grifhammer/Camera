@@ -8,16 +8,23 @@
 
 import UIKit
 
-class MainViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate {
+class MainViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
 
     private var currentZoom: CGFloat = 1.0
+    private var imageStore : [UIImage]!
     
+    @IBOutlet weak var previewCollectionView: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var displayImageView: UIImageView!
+    
+    
+    
     @IBAction func actionButtonTouched(sender: AnyObject) {
+        
         if let image = self.displayImageView.image{
-            //Add Code Here
+            
             let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+            
             activityViewController.excludedActivityTypes = [UIActivityTypeMail];
             
             self.presentViewController(activityViewController, animated: true, completion: nil)
@@ -26,6 +33,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     func displayImagePicker(sType: UIImagePickerControllerSourceType){
+        
         let imagePicker = UIImagePickerController()
         
         imagePicker.allowsEditing = true
@@ -37,13 +45,21 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @IBAction func cameraButtonTouched(sender: AnyObject) {
+        
         displayImagePicker(.Camera)
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        
         self.displayImageView.image = image
         
         picker.dismissViewControllerAnimated(true, completion: nil)
+        
+        self.imageStore.insert(image, atIndex: 0)
+        
+        previewCollectionView.alpha = 1.0
+        
+        self.previewCollectionView.reloadData()
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -65,9 +81,13 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         gesture.numberOfTapsRequired = 2
         
+        self.imageStore = [UIImage]()
+        
         self.scrollView.addGestureRecognizer(gesture)
         
         self.scrollView.delegate = self
+        
+        previewCollectionView.alpha = 0.0
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,11 +107,13 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     */
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        
         return self.displayImageView
     }
     
     
     func zoomImage(){
+        
         if self.currentZoom == 1.0{
             self.currentZoom = 2.0
         }
@@ -103,6 +125,32 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             self.scrollView.maximumZoomScale = self.currentZoom
             self.scrollView.zoomScale = self.currentZoom
         }
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        let item = self.imageStore[indexPath.row]
+        
+        if let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PreviewCellReuseID", forIndexPath: indexPath) as? PreviewCollectionViewCell {
+            cell.previewImageView.image = item
+            
+            return cell
+        }
+        
+        return UICollectionViewCell()
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
+        return self.imageStore.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        let image = self.imageStore[indexPath.item]
+        
+        self.displayImageView.image = image
+        
     }
 
 }

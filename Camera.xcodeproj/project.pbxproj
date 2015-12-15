@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		85B367A31C1F8A3E003E1C8D /* PreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B367A21C1F8A3E003E1C8D /* PreviewCollectionViewCell.swift */; };
 		85DADB401C0FB7520006213B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DADB3F1C0FB7520006213B /* AppDelegate.swift */; };
 		85DADB451C0FB7520006213B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85DADB431C0FB7520006213B /* Main.storyboard */; };
 		85DADB471C0FB7520006213B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85DADB461C0FB7520006213B /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		85B367A21C1F8A3E003E1C8D /* PreviewCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		85DADB3C1C0FB7520006213B /* Camera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Camera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85DADB3F1C0FB7520006213B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85DADB441C0FB7520006213B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			children = (
 				85DADB3F1C0FB7520006213B /* AppDelegate.swift */,
 				85DADB431C0FB7520006213B /* Main.storyboard */,
+				85B367A21C1F8A3E003E1C8D /* PreviewCollectionViewCell.swift */,
 				85DADB511C0FB7FA0006213B /* MainViewController.swift */,
 				85DADB461C0FB7520006213B /* Assets.xcassets */,
 				85DADB481C0FB7520006213B /* LaunchScreen.storyboard */,
@@ -135,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85B367A31C1F8A3E003E1C8D /* PreviewCollectionViewCell.swift in Sources */,
 				85DADB401C0FB7520006213B /* AppDelegate.swift in Sources */,
 				85DADB521C0FB7FA0006213B /* MainViewController.swift in Sources */,
 			);
