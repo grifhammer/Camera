@@ -53,9 +53,12 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         self.displayImageView.image = image
         
+        
         picker.dismissViewControllerAnimated(true, completion: nil)
         
+       
         self.imageStore.insert(image, atIndex: 0)
+        
         
         previewCollectionView.alpha = 1.0
         
