@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import FBSDKShareKit
 
-class MainViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class MainViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, FBSDKSharingDelegate {
 
     private var currentZoom: CGFloat = 1.0
     private var imageStore : [UIImage]!
@@ -17,18 +18,24 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var displayImageView: UIImageView!
     
+    func sharer(sharer: FBSDKSharing!, didCompleteWithResults results: [NSObject : AnyObject]!) {
+        
+    }
     
+    func sharer(sharer: FBSDKSharing!, didFailWithError error: NSError!) {
+        
+    }
+    
+    func sharerDidCancel(sharer: FBSDKSharing!) {
+        
+    }
     
     @IBAction func actionButtonTouched(sender: AnyObject) {
-        
-        if let image = self.displayImageView.image{
-            
-            let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-            
-            activityViewController.excludedActivityTypes = [UIActivityTypeMail];
-            
-            self.presentViewController(activityViewController, animated: true, completion: nil)
-            
+        if let image = self.displayImageView.image {
+            let sharePhoto = FBSDKSharePhoto(image: image, userGenerated: true)
+            let content = FBSDKSharePhotoContent()
+            content.photos = [sharePhoto]
+            FBSDKShareDialog.showFromViewController(self, withContent: content, delegate: self)
         }
     }
     
@@ -89,6 +96,8 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.scrollView.addGestureRecognizer(gesture)
         
         self.scrollView.delegate = self
+        
+        
         
         previewCollectionView.alpha = 0.0
     }
