@@ -13,6 +13,8 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
     private var currentZoom: CGFloat = 1.0
     private var imageStore : [UIImage]!
+    private let locationManager : LocationManager = LocationManager()
+    private let fbManager = FacebookManager()
     
     @IBOutlet weak var previewCollectionView: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -35,7 +37,22 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             let sharePhoto = FBSDKSharePhoto(image: image, userGenerated: true)
             let content = FBSDKSharePhotoContent()
             content.photos = [sharePhoto]
-            FBSDKShareDialog.showFromViewController(self, withContent: content, delegate: self)
+            
+            if let currentLocation = self.locationManager.getCurrentLocation(){
+                self.fbManager.getPlaceID(lattitude: currentLocation.lat, longitude: currentLocation.long, complete: { [weak self](placeId, error) -> Void in
+                    if placeId != nil{
+                        content.placeID = placeId
+                    }
+                    else if error != nil{
+                        print("Failed to retreive placeID: \(error)")
+                    }
+                    FBSDKShareDialog.showFromViewController(self, withContent: content, delegate: self)
+                    })
+            }
+            else {
+                FBSDKShareDialog.showFromViewController(self, withContent: content, delegate: self)
+            }
+
         }
     }
     

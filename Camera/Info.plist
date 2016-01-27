@@ -29,6 +29,8 @@
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
+		<string>gps</string>
+		<string>location-services</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
@@ -90,5 +92,9 @@
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
 	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>The Camera App wishes to use Location Services</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Hi I am a Camera App. I am a cool app made by a cool guy. I am totally not gonna do bad things with your location.</string>
 </dict>
 </plist>
